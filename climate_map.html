@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Climate Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Customize the map container's size */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Create a div for your map with a unique ID -->
+    <div id="map"></div>
+
+    <!-- Include Leaflet library -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Initialize the map with a zoom level to focus on Pakistan
+        const map = L.map('map').setView([30.3753, 69.3451], 6);
+
+        // Add a base map layer (you can customize the tileset)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Define your prominent locations and climate issues
+        const locations = [
+            { name: "Karachi", lat: 24.8607, lon: 67.0011, issue: "Frequent heatwaves", severity: "High" },
+            { name: "Lahore", lat: 31.5497, lon: 74.3436, issue: "Air pollution", severity: "Moderate" },
+            { name: "Islamabad", lat: 33.6844, lon: 73.0479, issue: "Deforestation", severity: "Low" },
+            // Add more locations with their specific data here
+        ];
+
+        // Loop through locations and add markers and pop-ups
+        locations.forEach(location => {
+            const marker = L.marker([location.lat, location.lon]).addTo(map);
+            marker.bindPopup(`<b>${location.name}</b><br>Climate Issue: ${location.issue}<br>Severity: ${location.severity}`).openPopup();
+        });
+    </script>
+</body>
+</html>
